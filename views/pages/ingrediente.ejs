@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<title>adminForm</title>
@@ -9,6 +9,7 @@
 <body>
 	<section class="container margenSup">
 		<h1>INGREDIENTES</h1>
+		<p id="tamanoVista" ><%= plato_ingrediente.length%></p>
 		<div class="row table-responsive">
 			<table class="table table-hover table-condensed">
 				<thead>
@@ -29,10 +30,8 @@
 					            
 					            <td><%=plato_ingrediente[i].referencia%></td>
 					            <td><%=plato_ingrediente[i].nombre%></td>
-					            <td><%=plato_ingrediente[i].cantidad%></td>
-					            <td>
-					                <a class="" href="/ingrediente/<%=plato_ingrediente[i].numero%>">SEGUIR</a>
-					            </td>
+					            <td><span id="spanA<%=i %>"><%=plato_ingrediente[i].cantidad%></span></td>
+					            <td><strong><span id="spanB<%=i %>"></span></strong></td>
 					        </tr>
     					<% }
     
@@ -44,9 +43,49 @@
 
 				</tbody>
 			</table>
+
+			<input type="text" id="num" placeholder="Número de platos" class="form-control" size="10">
+
+			<div id="reflejar"></div>
+
+			<h1 id="multiplicacion"></h1>
+
 		</div>
 
 	</section>
-	<% include ../partes/footerScripts%>
+
+	<!-- NO FUNCIONA CON EL JQUERY OCAL -->
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			//Recuperando tamaño del array de objetos y parseandolo
+			var vista = $('#tamanoVista').html();
+			var tamVista = parseInt(vista);
+
+			//Creando un array que guardará las cantidades de los ngredientes.
+			var arrayVistaCantidades = new Array(tamVista);
+
+			//Guardando las cantidades de vista en el array
+			for (var j = 0; j < tamVista; j++) {
+				arrayVistaCantidades[j] = $('#spanA' + [j]).text();
+			};
+
+			$('#num').on('keyup', function(){
+
+				//Input de entrada de numero de platos
+				var numeroPlatos = $('#num').val();
+
+				//Para ingresar en la etiqueta span con id spanB los datos en tiempo de ejecucion
+				for (var i = 0; i < tamVista; i++) {
+
+					var multiplicacion = parseInt(numeroPlatos) * arrayVistaCantidades[i];
+					$('#spanB' + [i]).text(multiplicacion);
+
+					//$('#spanB' + [i]).text(numeroPlatos);
+				};
+ 			});
+		});
+	</script>
 </body>
 </html>
