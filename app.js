@@ -44,7 +44,7 @@ app.post('/',function(req, res){
 	if (req.body.contrasena == "1234") {
 	    res.redirect('categoria');
 	}if(req.body.nombre == "admin" && req.body.contrasena == ""){
-	  res.redirect("adminT");//no esta implementado
+	  //res.redirect("adminT");//no esta implementado
 	}else {
 	  res.render("pages/index");
 	}
