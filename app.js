@@ -44,7 +44,7 @@ app.post('/',function(req, res){
 	if (req.body.contrasena == "1234") {
 	    res.redirect('categoria');
 	}if(req.body.nombre == "admin" && req.body.contrasena == ""){
-	  //res.redirect("adminT");//no esta implementado
+	  res.redirect("administrador");
 	}else {
 	  res.render("pages/index");
 	}
@@ -92,6 +92,81 @@ app.get("/ingrediente/:id", function(req, res){
 		res.render('pages/ingrediente', {plato_ingrediente : rows});		
 	});
 });
+
+//--------------------------------------- CRUD -------------------------------
+
+//Implementando administrador, mostrará la tabla de platos
+//Get, toma el Codigo del plato para buscar en plato_ingrediente
+app.get("/administrador", function(req, res){
+
+	conexion.query('SELECT c.codigo as codigo_categoria, c.nombre as nombre_categoria, p.codigo, p.nombre FROM plato p join categoria c on p.codigo_categoria = c.codigo', function (err, rows){
+		if (err) {
+			console.log("El error esta : %s ", err);
+		}
+
+		res.render('pages/administrador', {plato : rows});
+		console.log(rows[0]);		
+	});
+});
+
+//Mostrar formulario de guardar plato
+app.get("/guardarPlato", function(req, res){
+	res.render('pages/crearPlato');
+});
+
+//Guarda (crea) el plato y la categoria
+app.post('/guardarPlato',function(req, res){
+
+	console.log(req.body);
+
+	
+	var datosCategoria = {
+		codigo: req.body.codigoCategoria,
+		nombre: req.body.nombreCategoria
+	};
+
+	var datosPlato = {
+		nombre: req.body.nombrePlato,
+		codigo_categoria: req.body.codigoCategoria
+	};
+
+	var codigoRecuperado;
+
+	var queryCategoria = conexion.query('INSERT INTO categoria set ?', datosCategoria, function(err, rows){
+   		if(err){
+      		throw err;
+   		}else{
+   			//this.codigoRecuperado = rows.insertId;
+      		//res.redirect('/guardarPlato');
+   		}
+ 	});
+
+ 	var queryPlato = conexion.query('INSERT INTO plato set ?', datosPlato, function(err, rows){
+   		if(err){
+      		throw err;
+   		}else{
+   			//this.codigoRecuperado = rows.insertId;
+      		res.redirect('/administrador');
+   		}
+ 	});
+
+});
+
+//Ir al administrador de ingredientes, le llega el codigo del plato para mostrar los ingredientes
+//Get que toma el odigo de categoria para buscar en plato
+app.get("/administradorIngredientes/:id", function(req, res){
+
+	var id = req.params.id;
+
+	conexion.query('SELECT * FROM ingrediente WHERE referencia = ?', id, function (err, rows){
+		if (err) {
+			console.log("El error esta : %s ", err);
+		}
+
+		res.render('pages/administradorIngredientes', {ingrediente : rows});		
+	});
+});
+
 
 ///guardarUsuario/<%= usuario.id %>?_method=put
 // consulta SELECT * FROM ingrediente i join plato_ingrediente p on i.referencia = p.referencia_ingrediente WHERE p.codigo_plato = 11

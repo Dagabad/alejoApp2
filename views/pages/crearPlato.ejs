@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guardar</title>
+  <% include ../partes/head %>
+</head>
+<body>
+  <section class="container margenSup">
+
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <h1 class="text-center">Crear Plato</h1>
+          <!-- Nota: no he tocado os atributos de form -->
+        <form action="/guardarPlato" method="post">
+
+                <div class="form-group">
+                  <input type="number" name="codigoCategoria" placeholder="Codigo Categoria" class="form-control" >
+                </div>
+                
+                <div class="form-group">
+                  <input type="text" name="nombreCategoria" placeholder="Nombre Categoria" class="form-control" >
+                </div>
+
+                <div class="form-group">
+                  <input type="text" name="nombrePlato" placeholder="Nombre Plato" class="form-control" >
+                </div>
+          
+                <div class="form-group text-center">
+                  <input type="submit" class="btn btn-info btn-block" value="Guardar" >
+                  <a href="/administrador" class="btn btn-warning btn-block" style="margin-top: 5%;">Atras</a>
+                  <a href="/" class="btn btn-danger btn-block" style="margin-top: 5%;">Ir a inicio</a>
+                </div>
+
+        </form> 
+
+                
+      </div>
+    </div>
+
+  </section>
+</body>

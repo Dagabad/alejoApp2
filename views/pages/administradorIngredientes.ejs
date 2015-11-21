@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>adminForm</title>
+	<title>Administrador de Ingredientes</title>
+  	<% include ../partes/head %>
+</head>
+<body>
+	<section class="container margenSup">
+		<div class="row table-responsive">
+			<table class="table table-hover table-condensed">
+				<thead>
+				<tr>
+					<th>REFERENCIA</th>
+					<th>NONMBRE</th>
+					<th>CANTIDAD</th>
+				</tr>
+				</thead>
+				<tbody>
+					
+					<% if(ingrediente.length){ 
+                        
+         				for(var i = 0;i < ingrediente.length;i++) { %>
+         
+					        <tr>
+					            <td><%=ingrediente[i].referencia%></td>
+					            <td><%=ingrediente[i].nombre%></td>
+					            <td><%=ingrediente[i].cantidad%></td>
+					            <td>
+					                <a class="" href="/delete/<%=ingrediente[i].id%>">DELETE</a>
+					                <span>-</span>
+					               	<a class="" href="/update/<%=ingrediente[i].id%>">UPDATE</a>
+					               	<span>-</span>
+					               	<a class="" href="/administradorIngredientes/<%=ingrediente[i].id%>">IR A INGREDIENTES</a>
+					            </td>
+					        </tr>
+    					<% }
+    
+				     }else{ %>
+				         <tr>
+				            <td colspan="5">No Data</td>
+				         </tr>
+				    <% } %>
+
+				</tbody>
+			</table>
+			
+			<div class="col-md-4 col-md-offset-4">
+				<a href="/guardarPlato" class="btn btn-info btn-block" style="margin-top: 5%;">CREAR</a>
+				<a href="/" class="btn btn-warning btn-block" style="margin-top: 5%;">Atras</a>
+			</div>
+
+		</div>
+
+	</section>
+	<% include ../partes/footerScripts%>
+</body>
+</html>
