@@ -8,9 +8,12 @@
 </head>
 <body>
 	<section class="container margenSup">
-		<h1>INGREDIENTES</h1>
-		<p id="tamanoVista" ><%= plato_ingrediente.length%></p>
-		<div class="row table-responsive">
+
+		<h1 class="text-center">INGREDIENTES</h1>
+
+		<p id="tamanoVista" style="display:none;"><%= plato_ingrediente.length%></p>
+
+		<div class="row table-responsive margenSupPeq">
 			<table class="table table-hover table-condensed">
 				<thead>
 				<tr>
@@ -43,13 +46,12 @@
 
 				</tbody>
 			</table>
+		</div>
 
-			<input type="text" id="num" placeholder="Número de platos" class="form-control" size="10">
-
-			<div id="reflejar"></div>
-
-			<h1 id="multiplicacion"></h1>
-
+		<div class="row">
+			<div class="col-md-3 col-md-offset-4">
+				<input type="text" id="num" placeholder="Número de platos" class="form-control">
+			</div>
 		</div>
 
 	</section>

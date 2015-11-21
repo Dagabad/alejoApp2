@@ -19,6 +19,11 @@ body.fondo{
   margin-top: 10%;
 }
 
+/* Da margen superior */
+.margenSupPeq{
+  margin-top: 5%;
+}
+
 /* Centrar cualquier div */
 .center-block {
   display: block;

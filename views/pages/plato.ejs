@@ -8,8 +8,10 @@
 </head>
 <body>
 	<section class="container margenSup">
-		<h1>PLATOS</h1>
-		<div class="row table-responsive">
+
+		<h1 class="text-center">PLATOS</h1>
+
+		<div class="row table-responsive margenSupPeq">
 			<table class="table table-hover table-condensed">
 				<thead>
 				<tr>
@@ -29,7 +31,7 @@
 					            <td><%=plato[i].codigo%></td>
 					            <td><%=plato[i].nombre%></td>
 					            <td>
-					                <a class="" href="/ingrediente/<%=plato[i].codigo%>">SEGUIR</a>
+					                <a class="btn btn-primary" href="/ingrediente/<%=plato[i].codigo%>"><%=plato[i].nombre%></a>
 					            </td>
 					        </tr>
     					<% }
