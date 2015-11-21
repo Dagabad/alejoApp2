@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>adminForm</title>
+	<title>Categoria</title>
+  	<% include ../partes/head %>
+</head>
+<body>
+	<section class="container margenSup">
+		<h1>PLATOS</h1>
+		<div class="row table-responsive">
+			<table class="table table-hover table-condensed">
+				<thead>
+				<tr>
+					<th>CODIGO</th>
+					<th>NOMBRE</th>
+					<th>ACCIONES</th>
+				</tr>
+				</thead>
+				<tbody>
+					
+					<% if(plato.length){ 
+                        
+         				for(var i = 0;i < plato.length;i++) { %>
+         
+					        <tr>
+					            
+					            <td><%=plato[i].codigo%></td>
+					            <td><%=plato[i].nombre%></td>
+					            <td>
+					                <a class="" href="/ingrediente/<%=plato[i].codigo%>">SEGUIR</a>
+					            </td>
+					        </tr>
+    					<% }
+    
+				     }else{ %>
+				         <tr>
+				            <td colspan="5">No Data</td>
+				         </tr>
+				    <% } %>
+
+				</tbody>
+			</table>
+		</div>
+
+	</section>
+	<% include ../partes/footerScripts%>
+</body>
+</html>

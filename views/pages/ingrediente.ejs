@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>adminForm</title>
+	<title>Categoria</title>
+  	<% include ../partes/head %>
+</head>
+<body>
+	<section class="container margenSup">
+		<h1>INGREDIENTES</h1>
+		<div class="row table-responsive">
+			<table class="table table-hover table-condensed">
+				<thead>
+				<tr>
+					<th>REFERENCIA</th>
+					<th>NOMBRE</th>
+					<th>CANTIDAD</th>
+					<th>TOTAL</th>
+				</tr>
+				</thead>
+				<tbody>
+					
+					<% if(plato_ingrediente.length){ 
+                        
+         				for(var i = 0;i < plato_ingrediente.length;i++) { %>
+         
+					        <tr>
+					            
+					            <td><%=plato_ingrediente[i].referencia%></td>
+					            <td><%=plato_ingrediente[i].nombre%></td>
+					            <td><%=plato_ingrediente[i].cantidad%></td>
+					            <td>
+					                <a class="" href="/ingrediente/<%=plato_ingrediente[i].numero%>">SEGUIR</a>
+					            </td>
+					        </tr>
+    					<% }
+    
+				     }else{ %>
+				         <tr>
+				            <td colspan="5">No Data</td>
+				         </tr>
+				    <% } %>
+
+				</tbody>
+			</table>
+		</div>
+
+	</section>
+	<% include ../partes/footerScripts%>
+</body>
+</html>

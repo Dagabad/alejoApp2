@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IndexLogin</title>
+  <% include ../partes/head %>
+</head>
+<body>
+  <section class="container margenSup">
+    <h1 class="text-center">Loguin</h1>
+    <div class="row">
+      <div class="col-xs-4 col-xs-offset-4 text-center">
+        <form method="post" action="/" name="formularioLoguin">
+          <div class="form-group">
+            <input type="text" class="form-control" name="nombre" placeholder="Nombre" autofocus>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" name="contrasena" placeholder="Contraseña">
+          </div>
+          <div class="form-group text-center">
+            <input type="submit" class="btn btn-info" name="btnEntrar" value="Entrar">
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
