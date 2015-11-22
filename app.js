@@ -105,7 +105,7 @@ app.get("/administrador", function(req, res){
 		}
 
 		res.render('pages/administrador', {plato : rows});
-		console.log(rows[0]);		
+		//console.log(rows[0]);		
 	});
 });
 
@@ -117,7 +117,7 @@ app.get("/guardarPlato", function(req, res){
 //Guarda (crea) el plato y la categoria
 app.post('/guardarPlato',function(req, res){
 
-	console.log(req.body);
+	//console.log(req.body);
 
 	
 	var datosCategoria = {
@@ -158,13 +158,59 @@ app.get("/administradorIngredientes/:id", function(req, res){
 
 	var id = req.params.id;
 
-	conexion.query('SELECT * FROM ingrediente WHERE referencia = ?', id, function (err, rows){
+	conexion.query('SELECT i.referencia, i.nombre, i.cantidad, p.codigo_plato FROM plato_ingrediente p join ingrediente i on p.referencia_ingrediente = i.referencia WHERE codigo_plato = ?', id, function (err, rows){
 		if (err) {
 			console.log("El error esta : %s ", err);
 		}
-
+		//console.log(rows[0]);
 		res.render('pages/administradorIngredientes', {ingrediente : rows});		
 	});
+});
+
+//Muestra vista formulario Guardar ingrediente
+app.get("/guardarIngrediente/:id", function(req, res){
+
+	var id = {codigo_plato : req.params.id};
+	res.render('pages/crearIngrediente',{codigo : id});
+
+});
+
+//Crear ingrediente
+app.post('/guardarIngrediente',function(req, res){
+
+	//console.log(req.body);
+
+	
+	var datosIngrediente = {
+		referencia : req.referenciaIngrediente,
+		nombre: req.body.nombreIngrediente,
+		cantidad: req.body.cantidadIngrediente
+	};
+
+	var datosPlatoIngrediente = {
+		numero: '',
+		codigo_plato: req.body.codigoPlato,
+		referencia_ingrediente: req.body.referenciaIngrediente,
+	};
+
+	var queryIngrediente = conexion.query('INSERT INTO ingrediente set ?', datosIngrediente, function(err, rows){
+   		if(err){
+      		throw err;
+   		}else{
+
+   		}
+ 	});
+
+ 	var queryPlatoIngrediente = conexion.query('INSERT INTO plato_ingrediente set ?', datosPlatoIngrediente, function(err, rows){
+   		if(err){
+      		throw err;
+      		res.redirect('/administradorIngredientes');
+   		}else{
+   			//this.codigoRecuperado = rows.insertId;
+      		res.redirect('/administradorIngredientes');
+   		}
+ 	});
+
 });
 
 
