@@ -114,7 +114,7 @@ app.get("/guardarPlato", function(req, res){
 	res.render('pages/crearPlato');
 });
 
-//Guarda (crea) el plato y la categoria
+//Guarda (crea) el plato y la categoria con fallas
 app.post('/guardarPlato',function(req, res){
 
 	//console.log(req.body);
@@ -168,48 +168,68 @@ app.get("/administradorIngredientes/:id", function(req, res){
 });
 
 //Muestra vista formulario Guardar ingrediente
-app.get("/guardarIngrediente/:id", function(req, res){
+app.get("/guardarIngrediente", function(req, res){
 
-	var id = {codigo_plato : req.params.id};
-	res.render('pages/crearIngrediente',{codigo : id});
+	//var id = {codigo_plato : req.params.id},{codigo : id};
+	res.render('pages/crearIngrediente');
 
 });
 
-//Crear ingrediente
+//Crear ingrediente funciona 100% crea ingrediente y llena tabla plato_ingrediente
 app.post('/guardarIngrediente',function(req, res){
 
 	//console.log(req.body);
 
-	
+	//Funciona para crear ingrediente
 	var datosIngrediente = {
-		referencia : req.referenciaIngrediente,
+		referencia : req.body.referenciaIngrediente,
 		nombre: req.body.nombreIngrediente,
 		cantidad: req.body.cantidadIngrediente
 	};
 
-	var datosPlatoIngrediente = {
-		numero: '',
+	var codigo_plato = req.body.codigoPlato;
+
+	var datosPlato = {
+		numero : '',
 		codigo_plato: req.body.codigoPlato,
-		referencia_ingrediente: req.body.referenciaIngrediente,
+		referencia_ingrediente: req.body.referenciaIngrediente
 	};
 
+	
 	var queryIngrediente = conexion.query('INSERT INTO ingrediente set ?', datosIngrediente, function(err, rows){
    		if(err){
       		throw err;
    		}else{
-
+   			//res.redirect('/plato_ingrediente/' + datosIngrediente.referencia + '/' + datosPlato.codigo_plato );
    		}
  	});
 
- 	var queryPlatoIngrediente = conexion.query('INSERT INTO plato_ingrediente set ?', datosPlatoIngrediente, function(err, rows){
+	
+	var queryIngrediente = conexion.query('INSERT INTO plato_ingrediente set ?', datosPlato, function(err, rows){
    		if(err){
       		throw err;
-      		res.redirect('/administradorIngredientes');
    		}else{
-   			//this.codigoRecuperado = rows.insertId;
-      		res.redirect('/administradorIngredientes');
+   			res.redirect('/administradorIngredientes/' + codigo_plato);
    		}
  	});
+});
+
+//Eliminar ingrediente
+//Borrar tupla funciona 100%
+app.get("/borrarIngrediente/:id/:id2", function(req, res){
+
+	var id = req.params.id; //codigo_plato
+
+	var id2 = req.params.id2; //referencia_ingrediente
+
+	
+	var query = conexion.query("DELETE FROM ingrediente WHERE referencia = ?",id2,function (err, rows){
+		if (err) {
+			throw err;
+		}else{
+			res.redirect('/administradorIngredientes/' + id);
+		}
+	});
 
 });
 
