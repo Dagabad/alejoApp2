@@ -315,7 +315,49 @@ app.post("/actualizarIngrediente", function(req, res){
 	});
 });
 
+//Mostrar vista de actualiarPlato
+//Actualizar ingrediente vista formulario
+app.get("/actualizarPlato/:id/:id2/:id3", function(req, res){
 
+	//odigo id1
+
+	//nombre id2
+
+	//codigo_categoria id3
+
+	var datos = {
+		codigo: req.params.id,
+		nombre: req.params.id2, 
+		codigo_categoria: req.params.id3
+	};
+
+	res.render('pages/actualizarPlato',{plato : datos});
+});
+
+//Actualiza el plato
+app.post("/actualizarPlato", function(req, res){
+
+	//referencia id1
+
+	//nombre id2
+
+	//cantidad id3
+
+	var datos = {
+		codigo: req.body.codigoPlato,
+		nombre: req.body.nombrePlato, 
+		codigo_categoria: req.body.codigoCategoria
+	};
+
+	var query = conexion.query('UPDATE plato set ? WHERE codigo = ? ',[datos, datos.codigo], function (err, rows){
+		if (err) {
+			console.log("El error esta : %s ", err);
+		}else{
+			res.redirect('/administrador');
+		}
+	
+	});
+});
 
 
 ///guardarUsuario/<%= usuario.id %>?_method=put

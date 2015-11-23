@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Actualizar Ingrediente</title>
+  <title>Guardar</title>
   <% include ../partes/head %>
 </head>
 <body>
@@ -10,29 +10,30 @@
 
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
-        <h1 class="text-center">Actualizar Ingrediente</h1>
+        <h1 class="text-center">Actualizar Plato</h1>
           <!-- Nota: no he tocado os atributos de form -->
-        <form action="/actualizarIngrediente" method="post">
+        <form action="/actualizarPlato" method="post">
 
                 <div class="form-group">
-                  <input type="number" name="referenciaIngrediente" value="<%=ingrediente.referencia%>" class="form-control" required>
+                  <input type="number" name="codigoPlato" value="<%= plato.codigo%>" class="form-control" required>
                 </div>
                 
                 <div class="form-group">
-                  <input type="text" name="nombreIngrediente" value="<%=ingrediente.nombre%>" class="form-control" required>
+                  <input type="text" name="nombrePlato" value="<%= plato.nombre%>" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                  <input type="number" name="cantidadIngrediente" value="<%=ingrediente.cantidad%>" class="form-control" required>
+                  <input type="number" name="codigoCategoria" value="<%= plato.codigo_categoria%>" class="form-control" required>
                 </div>
           
                 <div class="form-group text-center">
-                  <input type="submit" class="btn btn-info btn-block" value="Guardar" >
-                  <a href="/administrador%>" class="btn btn-warning btn-block" style="margin-top: 5%;">Atras</a>
+                  <input type="submit" class="btn btn-info btn-block" value="Actualizar" >
+                  <a href="/administrador" class="btn btn-warning btn-block" style="margin-top: 5%;">Atras</a>
                   <a href="/" class="btn btn-danger btn-block" style="margin-top: 5%;">Ir a inicio</a>
                 </div>
 
         </form> 
+
                 
       </div>
     </div>
