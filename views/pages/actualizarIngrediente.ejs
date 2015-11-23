@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Guardar</title>
+  <title>Actualizar Ingrediente</title>
   <% include ../partes/head %>
 </head>
 <body>
@@ -10,26 +10,20 @@
 
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
-        <h1 class="text-center">Crear Plato</h1>
+        <h1 class="text-center">Actualizar Ingrediente</h1>
           <!-- Nota: no he tocado os atributos de form -->
-        <form action="/guardarPlato" method="post">
+        <form action="/actualizarIngrediente" method="post">
 
                 <div class="form-group">
-                  <input type="number" name="codigoCategoria" placeholder="Codigo Categoria" class="form-control" required>
+                  <input type="number" name="referenciaIngrediente" value="<%=ingrediente.referencia%>" class="form-control" required>
                 </div>
                 
                 <div class="form-group">
-                  <input type="text" name="nombreCategoria" placeholder="Nombre Categoria" class="form-control" required>
+                  <input type="text" name="nombreIngrediente" value="<%=ingrediente.nombre%>" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                  <input type="text" name="nombrePlato" placeholder="Nombre Plato" class="form-control" required>
-                </div>
-
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="check"> Marcar si la Categoria ya existe
-                  </label>
+                  <input type="number" name="cantidadIngrediente" value="<%=ingrediente.cantidad%>" class="form-control" required>
                 </div>
           
                 <div class="form-group text-center">

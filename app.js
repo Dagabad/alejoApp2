@@ -126,29 +126,67 @@ app.post('/guardarPlato',function(req, res){
 	};
 
 	var datosPlato = {
+		codigo: '',
 		nombre: req.body.nombrePlato,
 		codigo_categoria: req.body.codigoCategoria
 	};
 
-	var codigoRecuperado;
+	//Par comprobar que si el check esta marcado es porque la categoria ya existe
+	var check = req.body.check;
 
-	var queryCategoria = conexion.query('INSERT INTO categoria set ?', datosCategoria, function(err, rows){
-   		if(err){
-      		throw err;
-   		}else{
-   			//this.codigoRecuperado = rows.insertId;
-      		//res.redirect('/guardarPlato');
-   		}
- 	});
 
- 	var queryPlato = conexion.query('INSERT INTO plato set ?', datosPlato, function(err, rows){
-   		if(err){
-      		throw err;
-   		}else{
-   			//this.codigoRecuperado = rows.insertId;
-      		res.redirect('/administrador');
-   		}
- 	});
+	if (check == "on") {
+		console.log("Esta en on");
+
+	 	var queryPlato = conexion.query('INSERT INTO plato set ?', datosPlato, function(err, rows){
+	   		if(err){
+	      		throw err;
+	   		}else{
+	   			//this.codigoRecuperado = rows.insertId;
+	      		res.redirect('/administrador');
+	   		}
+	 	});
+
+
+	}else{
+		console.log("Esta en off");
+
+		//Crea categoria
+		var queryCategoria = conexion.query('INSERT INTO categoria set ?', datosCategoria, function(err, rows){
+	   		if(err){
+	      		throw err;
+	   		}else{
+	   			//this.codigoRecuperado = rows.insertId;
+	      		//res.redirect('/guardarPlato');
+	   		}
+	 	});
+
+		//Crea Producto
+	 	var queryPlato = conexion.query('INSERT INTO plato set ?', datosPlato, function(err, rows){
+	   		if(err){
+	      		throw err;
+	   		}else{
+	   			//this.codigoRecuperado = rows.insertId;
+	      		res.redirect('/administrador');
+	   		}
+	 	});
+	};	
+
+});
+
+//Borrar plato
+app.get("/borrarPlato/:id", function(req, res){
+
+	var id = req.params.id; //codigo_plato
+
+	
+	var query = conexion.query("DELETE FROM plato WHERE codigo = ?",id,function (err, rows){
+		if (err) {
+			throw err;
+		}else{
+			res.redirect('/administrador');
+		}
+	});
 
 });
 
@@ -232,6 +270,52 @@ app.get("/borrarIngrediente/:id/:id2", function(req, res){
 	});
 
 });
+
+//Actualizar ingrediente vista formulario
+app.get("/actualizarIngrediente/:id/:id2/:id3", function(req, res){
+
+	//referencia id1
+
+	//nombre id2
+
+	//cantidad id3
+
+	var datos = {
+		referencia: req.params.id,
+		nombre: req.params.id2, 
+		cantidad: req.params.id3
+	};
+
+	res.render('pages/actualizarIngrediente',{ingrediente : datos});
+});
+
+//Post para actualizar
+//Actualizar ingrediente vista formulario
+app.post("/actualizarIngrediente", function(req, res){
+
+	//referencia id1
+
+	//nombre id2
+
+	//cantidad id3
+
+	var datos = {
+		referencia: req.body.referenciaIngrediente,
+		nombre: req.body.nombreIngrediente, 
+		cantidad: req.body.cantidadIngrediente
+	};
+
+	var query = conexion.query('UPDATE ingrediente set ? WHERE referencia = ? ',[datos, datos.referencia], function (err, rows){
+		if (err) {
+			console.log("El error esta : %s ", err);
+		}else{
+			res.redirect('/');
+		}
+	
+	});
+});
+
+
 
 
 ///guardarUsuario/<%= usuario.id %>?_method=put
